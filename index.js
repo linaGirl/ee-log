@@ -25,7 +25,7 @@
 		};
 		
 		[ "bold", "underline", "italic", "inverse", "grey", "yellow", "red", "green", "blue", "white", "cyan", "magenta" ].forEach( function( style ) {
-			if ( !Object.prototype.hasOwnProperty.call( String.prototype, style ){
+			if ( !Object.prototype.hasOwnProperty.call( String.prototype, style ) ){
 				Object.defineProperty( String.prototype, style, {
 					get: function () {
 						return stylize(this, style);
