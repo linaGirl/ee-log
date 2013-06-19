@@ -33,9 +33,6 @@
 				} );				
 			}
 		} );
-
-
-		exports.init = function( scope ){}
 	} )();
 
 
@@ -142,7 +139,7 @@
 							}
 						}
 						else {
-							if ( current.$id ){
+							if ( current.$id !== undefined ) ){
 								result.source = current.$id;
 							}
 							else {
