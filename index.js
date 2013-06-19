@@ -139,7 +139,7 @@
 							}
 						}
 						else {
-							if ( current.$id !== undefined ) ){
+							if ( current.$id !== undefined ){
 								result.source = current.$id;
 							}
 							else {
