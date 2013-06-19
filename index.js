@@ -1,10 +1,10 @@
 	"use strict";
 
-	// silly simple class
+
 	( function(){
 
 		// dont do this twice
-		if ( !Object.prototype.hasOwnProperty.call( String.prototype, "bold" ) ){
+		try {
 		
 			// colorful strings
 			var stylize = function ( str, style ) {
@@ -33,7 +33,7 @@
 					}
 				} );
 			} );
-		}
+		} catch ( e ) {}
 
 
 		exports.init = function( scope ){}
