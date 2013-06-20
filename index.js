@@ -23,13 +23,14 @@
 	};
 	
 	[ "bold", "underline", "italic", "inverse", "grey", "yellow", "red", "green", "blue", "white", "cyan", "magenta" ].forEach( function( style ) {
-		if ( !String[ style ] ){
-			Object.defineProperty( String.prototype, style, {
-				get: function () {
-					return stylize(this, style);
-				}
-			} );				
-		}
+	
+		Object.defineProperty( String.prototype, style, {
+			get: function () {
+				return stylize(this, style);
+			}
+			, configurable: true
+     		, enumerable: false
+		} );	
 	} );
 
 	
@@ -41,6 +42,7 @@
 	var   Class 	= require( "ee-class" )
 		, cluster 	= require( "cluster" )
 		, nolog 	= process.argv.indexOf( "--nolog" ) > -1;
+
 
 
 	// the logger is a singleton
