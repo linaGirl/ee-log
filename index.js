@@ -287,7 +287,7 @@
 			if ( err && err.stack ){
 
 				console.log( this.__pad( "", 80, "#" ).grey );
-				console.log( "\n" + ( source ? source + ": " : "Error: " ).grey + ( err.name === "AssertionError" ? ( "AssertionError: <" + err.actual + "> " + err.operator + " <" + err.expected + ">" ) : ( err.message ? err.message : "-" ) ).white + "\n" );
+				console.log( "\n" + ( err.name + ": " ).grey + ( err.name === "AssertionError" ? ( "AssertionError: <" + err.actual + "> " + err.operator + " <" + err.expected + ">" ) : ( err.message ? err.message : "-" ) ).white + "\n" );
 			
 				lines = err.stack.split( "\n" );
 				i = lines.length, l = i;
