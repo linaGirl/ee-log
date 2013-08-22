@@ -40,7 +40,7 @@
 
 
 	var   Class 	= require( "ee-class" )
-		, cluster 	= require( "cluster" )
+		, project 	= require( "ee-project" )
 		, nolog 	= process.argv.indexOf( "--nolog" ) > -1;
 
 
@@ -51,135 +51,129 @@
 
 		// debug
 		, debug: function debug(){
-			if ( nolog ) return;
-			var logs = this.__extractMessage( Array.prototype.slice.call( arguments ) );
-			console.log( this.__createSignature( logs.source ) + logs.text.grey );
-
-			for ( var i = 0, l = logs.dir.length; i < l; i++ ){
-				this.dir( logs.dir[ i ] );
-			}
+			this.log( arguments, "grey" );
 		}
 
 		// info
 		, info: function info(){
-			if ( nolog ) return;
-			var logs = this.__extractMessage( Array.prototype.slice.call( arguments ) );
-			console.log( this.__createSignature( logs.source ) + logs.text.white );
-
-			for ( var i = 0, l = logs.dir.length; i < l; i++ ){
-				this.dir( logs.dir[ i ] );
-			}
+			this.log( arguments, "white" );
 		}
 
 		// warn
 		, warn: function warn(){
-			//if ( nolog ) return;
-			var logs = this.__extractMessage( Array.prototype.slice.call( arguments ) );
-			console.log( this.__createSignature( logs.source ) + logs.text.yellow.bold );
-
-			for ( var i = 0, l = logs.dir.length; i < l; i++ ){
-				this.dir( logs.dir[ i ] );
-			}
+			this.log( arguments, "yellow", true );
 		}
 
 		// error ( uncatchable )
 		, error: function error(){
-			if ( nolog ) return;
-			var logs = this.__extractMessage( Array.prototype.slice.call( arguments ) );
-			console.log( this.__createSignature( logs.source ) + logs.text.red.bold );
-
-			for ( var i = 0, l = logs.dir.length; i < l; i++ ){
-				this.dir( logs.dir[ i ] );
-			}
+			this.log( arguments, "red", true );
 		}
 
 
 
 		// highlight a message
 		, highlight: function highlight(){
-			if ( nolog ) return;
-			var logs = this.__extractMessage( Array.prototype.slice.call( arguments ) );
-			console.log( this.__createSignature( logs.source ) + logs.text.cyan.bold );
+			this.log( arguments, "cyan", true );
+		}
 
-			for ( var i = 0, l = logs.dir.length; i < l; i++ ){
-				this.dir( logs.dir[ i ] );
-			}
+
+		, log: function( args, color, bold ){
+			if ( nolog ) return;
+			var logs = this.buildMessage( Array.prototype.slice.call( args ) );
+			console.log( this.createSignature( color, bold ) + ( bold ? logs.text[ color ].bold : logs.text[ color ] ) );
+
+			this.printDir( logs.dir ); 
 		}
 
 
 
-		// highlight a message
-		, security: function highlight(){
-			if ( nolog ) return;
-			var logs = this.__extractMessage( Array.prototype.slice.call( arguments ) );
-			console.log( this.__createSignature( logs.source ) + logs.text.cyan.bold );
-
-			for ( var i = 0, l = logs.dir.length; i < l; i++ ){
-				this.dir( logs.dir[ i ] );
-			}
-		}
-
-
-
-		// extract message
-		, __extractMessage: function extract( items ){
-			var result = { text: "", dir: [] }, current;
-			for ( var i = 0, l = items.length; i < l; i++ ){
-				current = items[ i ];
-
-				switch ( typeof current ){
-					case "object":
-						if ( current === null ){
-							result.text += "null "
+		, buildMessage: function( items ){		
+			if ( items.length > 0 ){
+				if ( typeof items[ 0 ] === "string" ){
+					var reg = /\%s/gi, i = 0;
+					while( reg.exec( items[ 0 ] ) ){
+						i++;
+						if ( items.length > i ) {
+							var formatted = this.formatItem( items[ i ] );
+							items[ 0 ] = items[ 0 ].replace( /\%s/i, formatted );
+							reg.lastIndex += formatted.length; 
 						}
-						else if ( Buffer.isBuffer( current ) ){
-							for ( var k = 0, m = current.length; k < m; k++ ){
-								result.text += current[ k ].toString( 16 ) + " ";
-								if ( k > 400 ) {
-									result.text += "[ ... ] "
-									break;
-								}
-							}
-						}
-						else {
-							if ( current.$id !== undefined ){
-								result.source = current.$id;
-							}
-							else {
-								result.dir.push( current );
-							}
-						}
-						break;
+						else return this.processItems( "", items );						
+					}
 
-					case "string":
-						if ( current.length > 1000 ){
-							result.text +=  current.substr( 0, 1000 ) + " [ ... ] ";
-						}
-						else {
-							result.text +=  current + " ";
-						}
-						break;
-
-					default:
-						result.text +=  current + " ";
+					return this.processItems( items[ 0 ], items.slice( i + 1 ) );
 				}
+				else return this.processItems( "", items );
 			}
-			return result;
+			return this.processItems( "", [] );
 		}
 
+
+		, processItems: function( text, items ){
+			var logs = { text: [], dir: [] }, currentItem;
+
+			if ( text ) logs.text.push( text);
+
+			for ( var i = 0, l = items.length; i < l; i++ ){
+				currentItem = this.formatItem( items[ i ] );
+				if ( typeof currentItem === "object" ) logs.dir.push( items[ i ] );
+				else logs.text.push( currentItem );
+			}
+
+			logs.text = logs.text.join( ", " );
+
+			return logs;
+		}
+
+
+		, formatItem: function( input ){
+			switch ( typeof input ){
+				case "object":
+					if ( input === null ) return "null"
+					else if ( Buffer.isBuffer( input ) ){
+						var str = "";
+						for ( var k = 0, m = input.length; k < m; k++ ){
+							str += input[ k ].toString( 16 ) + " ";
+							if ( k > 400 ) {
+								str += "[ ... ]"
+								break;
+							}
+						}
+						return str;
+					}
+					else if ( typeof input.toISOString === "function" ) return input.toISOString();
+					else return input;
+					break;
+
+				case "string":
+					if ( input.length > 1000 ) return input.substr( 0, 1000 ) + " [ ... ]";
+					else return input;
+					break;
+
+				default:
+					return input + "";
+			}
+		}
 
 
 		// dir an object displaying an optional message
 		, dir: function(){
 			if ( nolog ) return;
-			var items = Array.prototype.slice.call( arguments );
 
+			// required for creating the correct signature ( nede to add a line to the stack );
+			( function(){
+				console.log( this.createSignature( "white" ) + "[Dir]".white );
+			}.bind( this ) )()
+			
+			this.printDir( Array.prototype.slice.call( arguments ) );
+		}
+
+
+		, printDir: function( items ){
 			for ( var i = 0, l = items.length; i < l; i++ ){
 				this.__dir( items[ i ], 0, null, true, [] );
 			}
 		}
-
-
 
 
 		// private dir
@@ -279,15 +273,17 @@
 
 
 		// trace an error displaying an optional message
-		, trace: function trace( err, source ){
-			//throw err;
+		, trace: function trace( err ){
 			if ( nolog ) return;
-			source = source && source.$id ? source.$id : "" ;
+
 			var lines, current, i, l;
 			if ( err && err.stack ){
 
-				console.log( this.__pad( "", 80, "#" ).grey );
-				console.log( "\n" + ( err.name + ": " ).grey + ( err.name === "AssertionError" ? ( "AssertionError: <" + err.actual + "> " + err.operator + " <" + err.expected + ">" ) : ( err.message ? err.message : "-" ) ).white + "\n" );
+				( function(){ console.log( this.createSignature( "red", true ) + "[Trace]".red.bold ); }.bind( this ) )();
+
+				console.log( this.__pad( "", 80, "-" ).grey );
+				console.log( ( err.name + ": " ).red.bold + ( err.message ? err.message : "-" ).white.bold  );
+				console.log( this.__pad( "", 80, "-" ).grey );
 			
 				lines = err.stack.split( "\n" );
 				i = lines.length, l = i;
@@ -295,34 +291,35 @@
 				while( i-- ){
 					current = /at (.*) \((.*)\:([0-9]+)\:([0-9]+)\)$/.exec( lines[ l - i ] );
 					
-					if ( ! current ){
+					if ( !current ){
 						current = /at ()(.*)\:([0-9]+)\:([0-9]+)$/.exec( lines[ l - i ] );
 					}
 					if ( current ) {
-						console.log( this.__pad( current[ 2 ], 42, " " ).yellow + this.__pad( current[ 3 ], 5, " " ).white + ":".grey + this.__pad( current[ 4 ], 4, " ", true ).grey + current[ 1 ].white  );
+						console.log( this.__pad( current[ 2 ].replace( project.root, "/" ), 30, " " ).yellow + this.__pad( current[ 3 ], 5, " " ).white + ":".grey + this.__pad( current[ 4 ], 4, " ", true ).grey + current[ 1 ].white  );
 					}
 				}
 
-				console.log( "\n" + this.__pad( "", 80, "#" ).grey );
+				console.log( this.__pad( "", 80, "-" ).grey );
 			}
 		}
 
 
 
 		// create logsignature
-		, __createSignature: function( source ){
-			var date = new Date(), result;
-
+		, createSignature: function( color, bold ){
+			var date = new Date(), result, pos = /\n.*\n.*\n.*\n\s*at\s([^\)]+)\s*\(([^:]+)\:([0-9]+)\:([0-9]+)/i.exec( ( new Error() ).stack );
+		
 			result  = this.__pad( date.getDate(), 2 ) + " ";
 			result += this.__pad( date.getHours(), 2 ) + ":";
 			result += this.__pad( date.getMinutes(), 2 ) + ":";
 			result += this.__pad( date.getSeconds(), 2 ) + ".";
 			result += this.__pad( date.getMilliseconds(), 3 );
 
-			result += " > "
-			if ( cluster.isMaster || cluster.isWorker ) result += cluster.isMaster ? "master".white + " ".grey : ( cluster.isWorker ? "w " + this.__pad( cluster.worker.uniqueID, 4, " ", true ) + " " : "" )
-			result += this.__pad( ( source || "-" ), 40, " " ).grey;
-			result += " >>> ".grey
+			result += " > ";
+			if ( pos ){
+				result += ( ( pos[ 2 ].replace( project.root, "/" ) + ":" + pos[ 3 ] ).yellow + ", ".grey + ( bold ? pos[ 1 ][ color ].bold: pos[ 1 ][ color ] ) ) + new Array( 65 - ( pos[ 1 ].length + pos[ 2 ].length + pos[ 3 ].length ) + 1 ).join( " " );
+			}
+			result += " >>> ".grey;
 
 			return result.grey;
 		}

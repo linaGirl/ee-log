@@ -1,7 +1,7 @@
 {
       "name":           "ee-log"
     , "description":    "simple & colorful console log replacement"
-    , "version":        "0.2.0"
+    , "version":        "0.2.1"
     , "homepage":       "https://github.com/eventEmitter/ee-log"
     , "author":         "Michael van der Weg <michael@eventemitter.com> (http://eventemitter.com/)" 
     , "repository": {
@@ -14,7 +14,8 @@
         "url":          "https://github.com/eventEmitter/ee-log/issues"
     }
     , "dependencies": {
-        "ee-class": "*"
+          "ee-class":   "*"
+        , "ee-project": "*"
     }
     , "devDependencies": {}
     , "optionalDependencies": {}
