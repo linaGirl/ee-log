@@ -10,3 +10,7 @@
 	log.highlight( "highlight" );
 	log.dir( { hi: 1 } );
 	log.trace( new Error( "testing the sh*t" ) );
+
+
+
+	log( 2, "er %s:%s", 22, new Error( "whoa!" ), "hui", new Error( "" ), new Buffer(22) );

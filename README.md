@@ -11,7 +11,6 @@ npm install ee-log
     var log = require( "ee-log" );
 
 
-
 ### debug
 
 prints grey text
@@ -113,3 +112,30 @@ prints a colorful error stack trace
 	                       node.js  119:16  startup
 	                       node.js  901:3   
 	--------------------------------------------------------------------------------
+
+
+### log method
+
+prints whatever comes, uses log.info for text types
+
+	log( 2, "er %s:%s", 22, new Error( "whoa!" ), "hui", new Error( "" ), new Buffer(22) );
+
+	// output
+	23 14:53:15.480 > /test.js 16:2, Object.<anonymous>               >>> 2
+	23 14:53:15.480 > /test.js 16:2, Object.<anonymous>               >>> er 22:Error: whoa!
+	23 14:53:15.480 > /test.js 16:2, Object.<anonymous>               >>> hui
+	23 14:53:15.482 > /test.js 16:2, Object.<anonymous>               >>> [Trace]
+	--------------------------------------------------------------------------------
+	Error: -
+	--------------------------------------------------------------------------------
+	                      /test.js   16:55  Object.<anonymous>
+	                     module.js  456:26  Module._compile
+	                     module.js  474:10  Object.Module._extensions..js
+	                     module.js  356:32  Module.load
+	                     module.js  312:12  Function.Module._load
+	                     module.js  497:10  Function.Module.runMain
+	                       node.js  119:16  startup
+	                       node.js  901:3   
+	--------------------------------------------------------------------------------
+	23 14:53:15.482 > /test.js 16:2, Object.<anonymous>               >>> 70 ab ac 0 0 0 0 0 3a 0 0 0 3b 0 0 0 f0 34 72 1 0 0 
+
