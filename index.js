@@ -317,7 +317,9 @@
 
 			result += " > ";
 			if ( pos ){
-				result += ( ( pos[ 2 ].replace( project.root, "/" ) + " " ).yellow  + pos[ 3 ].white + ( ":" + pos[ 4 ] ).grey + ", ".grey + ( bold ? pos[ 1 ][ color ].bold: pos[ 1 ][ color ] ) ) + new Array( 65 - ( pos[ 1 ].length + pos[ 2 ].length + pos[ 3 ].length + pos[ 4 ].length ) + 1 ).join( " " );
+				var tlen = 65 - ( pos[ 1 ].length + pos[ 2 ].length + pos[ 3 ].length + pos[ 4 ].length ) + 1;
+				if ( tlen < 1 ) tlen = 1;
+				result += ( ( pos[ 2 ].replace( project.root, "/" ) + " " ).yellow  + pos[ 3 ].white + ( ":" + pos[ 4 ] ).grey + ", ".grey + ( bold ? pos[ 1 ][ color ].bold: pos[ 1 ][ color ] ) ) + new Array( tlen ).join( " " );
 			}
 			result += " >>> ".grey;
 
