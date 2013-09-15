@@ -14,3 +14,15 @@
 
 
 	log( 2, "er %s:%s", 22, new Error( "whoa!" ), "hui", new Error( "" ), new Buffer(22) );
+
+
+	log.disable();
+
+	log.info( "this should not show up!" );
+
+	log.enable();
+
+	log.info( "this should show up!" );
+
+
+	log.wtf( "nope nope nope!" );

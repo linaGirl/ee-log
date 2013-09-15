@@ -2,6 +2,8 @@
 
 	colorful, nice formatted logs for node.js
 
+	ATTENTION: this library should only be used when developing - it makes use of the sysnchronous logging funtionality ( like console.log itself ). you should never use synchronous logging in a live environment, it will slow down your application heavily! The library will be updated soon with asynchronous logging support for live applicaions.
+
 ## installation
 
 npm install ee-log
@@ -139,3 +141,12 @@ prints whatever comes, uses log.info for text types
 	--------------------------------------------------------------------------------
 	23 14:53:15.482 > /test.js 16:2, Object.<anonymous>               >>> 70 ab ac 0 0 0 0 0 3a 0 0 0 3b 0 0 0 f0 34 72 1 0 0 
 
+
+
+### disbale logging on a per module base
+	
+	// call this from inside your module, no logs will be displayed anymore
+	log.disbale();
+
+	// enable logging again
+	log.enable();

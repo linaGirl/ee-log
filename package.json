@@ -1,12 +1,14 @@
 {
       "name":           "ee-log"
     , "description":    "simple & colorful console log replacement"
-    , "version":        "0.2.4"
+    , "version":        "0.2.7"
     , "homepage":       "https://github.com/eventEmitter/ee-log"
     , "author":         "Michael van der Weg <michael@eventemitter.com> (http://eventemitter.com/)"
     , "licence":        "MIT"
+    , "os":             "linux"
     , "repository": {
-        "url":          "https://github.com/eventEmitter/ee-log"
+          "url":        "https://github.com/eventEmitter/ee-log"
+        , "type":       "GIT"
     }
     , "engines": {
         "node":         "*"
