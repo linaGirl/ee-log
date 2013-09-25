@@ -1,8 +1,8 @@
 # ee-log
 
-	colorful, nice formatted logs for node.js
+colorful, nice formatted logs for node.js
 
-	ATTENTION: this library should only be used when developing - it makes use of the sysnchronous logging funtionality ( like console.log itself ). you should never use synchronous logging in a live environment, it will slow down your application heavily! The library will be updated soon with asynchronous logging support for live applicaions.
+ATTENTION: this library should only be used when developing - it makes use of the sysnchronous logging funtionality ( like console.log itself ). you should never use synchronous logging in a live environment, it will slow down your application heavily! The library will be updated soon with asynchronous logging support for live applicaions.
 
 ## installation
 
