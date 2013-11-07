@@ -6,7 +6,12 @@ ATTENTION: this library should only be used when developing - it makes use of th
 
 ## installation
 
-npm install ee-log
+	npm install ee-log
+
+## build status
+
+[![Build Status](https://travis-ci.org/eventEmitter/ee-log.png?branch=master)](https://travis-ci.org/eventEmitter/ee-log)
+
 
 ## usage
 

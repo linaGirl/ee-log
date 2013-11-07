@@ -1,26 +1,29 @@
 {
-      "name":           "ee-log"
-    , "description":    "simple & colorful console log replacement"
-    , "version":        "0.2.12"
-    , "homepage":       "https://github.com/eventEmitter/ee-log"
-    , "author":         "Michael van der Weg <michael@eventemitter.com> (http://eventemitter.com/)"
-    , "licence":        "MIT"
-    , "os":             "linux"
+      "name"                        : "ee-log"
+    , "description"                 : "simple, helpful & colorful logs"
+    , "version"                     : "0.2.14"
+    , "homepage"                    : "https://github.com/eventEmitter/ee-log"
+    , "author"                      : "Michael van der Weg <michael@eventemitter.com> (http://eventemitter.com/)" 
+    , "licence"                     : "mit"
     , "repository": {
-          "url":        "https://github.com/eventEmitter/ee-log"
-        , "type":       "GIT"
+          "url"                     : "https://github.com/eventEmitter/ee-log.git"
+        , "type"                    : "git"
     }
     , "engines": {
-        "node":         "*"
+        "node"                      : "*"
     }
     , "bugs": {
-        "url":          "https://github.com/eventEmitter/ee-log/issues"
+        "url"                       : "https://github.com/eventEmitter/ee-log/issues"
     }
     , "dependencies": {
-          "ee-class":   "*"
-        , "ee-project": "*"
-        , "ee-types":   "*"
+          "ee-class"                : "*"
+        , "ee-project"              : "*"
+        , "ee-types"                : "*"
     }
     , "devDependencies": {}
     , "optionalDependencies": {}
+    , "keywords"                    : [ "log", "logging", "trace", "colorful" ]    
+    , "scripts": {
+        "test"                      : "node test.js"
+    }
 }
