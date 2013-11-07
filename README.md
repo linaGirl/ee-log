@@ -148,7 +148,7 @@ prints whatever comes, uses log.info for text types
 
 
 
-### disable logging on a per module base
+### disable logging inside one module
 	
 	// call this from inside your module, no logs will be displayed anymore
 	log.disable();

@@ -3,10 +3,12 @@
 
 	var   assert 	= require( "assert" )
 		, index 	= 0
-		, results 	= [ 199,177,31,79,11,176,231,186,177,31,50,11,190,177,31,48,11,188,90,61,90,108,105,119,101,111,113,97,90,90,173,190,175,188,90,46,90,108,105,119,101,111,113,97,90,90,238,192,202 ];
+		, lens 		= []
+		, results 	= [199,31,79,11,176,231,186,31,50,11,190,31,48,11,188,90,61,90,108,105,119,101,111,113,97,90,90,173,191,175,188,90,46,90,108,105,119,101,111,113,97,90,90,238,192,202];
 
 
 	console.log = function( data ){
+		//lens.push( data.length );
 		assert.equal( data.length, results[ index ], "log line has the wrong length: " + data );
 		index++;
 	}
@@ -26,7 +28,7 @@
 
 
 
-	log( 2, "er %s:%s", 22, new Error( "whoa!" ), "hui", new Error( "" ), new Buffer(22) );
+	log( 2, "er %s: %s", 22, new Error( "whoa!" ), "hui", new Error( "" ), new Buffer(22) );
 
 
 	log.disable();
@@ -39,3 +41,6 @@
 
 
 	log.wtf( "nope nope nope!" );
+
+
+	//console.dir( JSON.stringify( lens ) );
