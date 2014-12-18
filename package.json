@@ -16,7 +16,7 @@
         "url"                       : "https://github.com/eventEmitter/ee-log/issues"
     }
     , "dependencies": {
-          "ee-class"                : "0.1.x"
+          "ee-class"                : "1.0.x"
         , "ee-types"                : "0.1.x"
     }
     , "devDependencies": {}
