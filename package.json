@@ -1,9 +1,9 @@
 {
       "name"                        : "ee-log"
     , "description"                 : "simple, helpful & colorful logs"
-    , "version"                     : "0.3.2"
+    , "version"                     : "0.3.3"
     , "homepage"                    : "https://github.com/eventEmitter/ee-log"
-    , "author"                      : "Michael van der Weg <michael@eventemitter.com> (http://eventemitter.com/)" 
+    , "author"                      : "Michael van der Weg <michael@eventemitter.com> (http://eventemitter.com/)"
     , "license"                     : "MIT"
     , "repository": {
           "url"                     : "https://github.com/eventEmitter/ee-log.git"
@@ -16,12 +16,12 @@
         "url"                       : "https://github.com/eventEmitter/ee-log/issues"
     }
     , "dependencies": {
-          "ee-class"                : "1.0.x"
+          "ee-class"                : "1.2.x"
         , "ee-types"                : "0.1.x"
     }
     , "devDependencies": {}
     , "optionalDependencies": {}
-    , "keywords"                    : [ "log", "logging", "trace", "colorful" ]    
+    , "keywords"                    : [ "log", "logging", "trace", "colorful" ]
     , "scripts": {
         "test"                      : "node test.js"
     }
