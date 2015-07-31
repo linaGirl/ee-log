@@ -1,7 +1,7 @@
 {
       "name"                        : "ee-log"
     , "description"                 : "simple, helpful & colorful logs"
-    , "version"                     : "0.3.3"
+    , "version"                     : "0.3.4"
     , "homepage"                    : "https://github.com/eventEmitter/ee-log"
     , "author"                      : "Michael van der Weg <michael@eventemitter.com> (http://eventemitter.com/)"
     , "license"                     : "MIT"
@@ -18,6 +18,7 @@
     , "dependencies": {
           "ee-class"                : "1.2.x"
         , "ee-types"                : "0.1.x"
+        , "ee-argv"                 : "0.1.x"
     }
     , "devDependencies": {}
     , "optionalDependencies": {}
