@@ -18,7 +18,6 @@
     , "dependencies": {
           "ee-class"                : "1.x"
         , "ee-types"                : "2.x"
-        , "ee-argv"                 : "0.1.x"
     }
     , "devDependencies": {}
     , "optionalDependencies": {}
