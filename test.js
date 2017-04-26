@@ -4,7 +4,7 @@
 	var   assert 	= require( "assert" )
 		, index 	= 0
 		, lens 		= []
-		, results 	= [172,31,40,71,50,70,120,117,131,113,115,123,116,105,109,102,15,50,11,199,31,79,11,176,232,186,31,50,11,190,31,48,11,188,90,61,90,108,105,119,101,103,111,104,93,97,90,90,173,191,175,188,90,46,90,108,105,119,101,103,111,104,93,97,90,90,238,192,180,202,172,31,75,11];
+		, results 	= [172,31,40,69,15,50,11,199,31,79,11,176,186,31,50,11,190,31,48,11,173,182,238,192,180,202,172,31,75,11,181,180,189,190,194,192,172,31,89,57,50,91,57,49,76,48,72,19,15,72,11];
 
 
 
@@ -19,28 +19,20 @@
 
 
 	log({
-		a: { c: '234234', x: new Error('hi, i am gone')}
+		a: { c: '234234'}
 		, b: 33
 	});
 
 	log.debug( "debug %s ==> %s", 1, new Buffer( "whoa!" ), { go: "is a cool language!"} );
 	log.info( "info" );
-	log.warn( "warn", new Date(), 455 );
 	log.error( "error", { "test": 3 } );
 	log.highlight( "highlight" );
 	log.dir( { hi: 1 } );
-	log.trace( new Error( "testing the sh*t" ) );
 
 
 
-	log( 2, "er %s: %s", 22, new Error( "whoa!" ), "hui", new Error( "" ), new Buffer(22) );
+	log( 2, "er %s: %s", 22,  "hui", new Buffer(22) );
 
-
-	log.disable();
-
-	log.info( "this should not show up!" );
-
-	log.enable();
 
 	log.info( "this should show up!" );
 
@@ -48,6 +40,23 @@
 	log.wtf( "nope nope nope!" );
 
 	log({blah: /hui/gi});
+
+
+	log.debug('debug log');
+	log.info('info log');
+	log.warn('warn log');
+	log.error('error log');
+	log.highlight('highlight log');
+	log.success('success log');
+	log({
+		  strings: 'hi, my name is michael'
+		, numbers: 139
+		, booleans: true
+		, regexps: /matching stuff/gi
+		, symbols: Symbol(1337)
+		, maps: new Map([['key-a', 'value-a'], ['key-b', {value: 'b'}]])
+		, and: 'many more'
+	});
 
 
 	//console.dir( JSON.stringify( lens ) );

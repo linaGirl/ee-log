@@ -1,20 +1,16 @@
-!function() {
+{
     'use strict';
 
 
-    var   Class     = require('ee-class')
-        , type      = require('ee-types')
-        , fs        = require('fs')
-        , util      = require('util');
-
-
-    var stylize, project;
+    const fs        = require('fs');
+    const type      = require('ee-types');
+    const util      = require('util');
 
 
 
 
     // colorful strings
-    stylize = function (str, style) {
+    const stylize = (str, style) => {
         var styles = {
               'bold':       [1, 22]
             , 'italic':     [3, 23]
@@ -33,7 +29,9 @@
         return '\x1b[' + (styles[style][0]) + 'm' + str + '\x1b[' + (styles[style][1]) + 'm';
     };
 
-    ['bold', 'underline', 'italic', 'inverse', 'grey', 'yellow', 'red', 'green', 'blue', 'white', 'cyan', 'magenta'].forEach(function(style) {
+
+
+    ['bold', 'underline', 'italic', 'inverse', 'grey', 'yellow', 'red', 'green', 'blue', 'white', 'cyan', 'magenta'].forEach((style) => {
         try{
             Object.defineProperty(String.prototype, style, {
                 get: function () {
@@ -48,135 +46,125 @@
 
 
     // old dependency emulation
-    project = new (new Class({
-        init: function() {
-            var   file = process.argv[1]
-                , stats;
+    const project = new (class Project {
+        constructor() {
+            let file = process.argv[1];
+            let stats;
 
-            if(file && file.indexOf('node_modules') >= 0) file = file.substr(0, file.indexOf('node_modules'));
+            if (file && file.indexOf('node_modules') >= 0) file = file.substr(0, file.indexOf('node_modules'));
 
             stats = fs.statSync(file);
 
 
-            if(stats) {
-                if (stats.isDirectory()) {
-                    this.root = file+'/';
-                }
-                else {
-                    this.root = file.substr(0, file.lastIndexOf('/')+1);
-                }
-            }
-            else {
-                console.warn('Failed to evaluate project root dir!');
-            }
+            if (stats) {
+                if (stats.isDirectory()) this.root = file+'/';
+                else this.root = file.substr(0, file.lastIndexOf('/')+1);
+            } else console.warn('Failed to evaluate project root dir!');
         }
-    }))();
+    })();
 
 
 
 
 
-    module.exports = new Class({
+    module.exports = class Logger {
 
-        init: function() {
+        constructor() {
             this.blacklist = [];
         }
 
-
-        , disable: function() {
-            this.blacklist.push(this.getCallingPath(3));
-        }
-
-        , enable: function() {
-            var index = this.blacklist.indexOf(this.getCallingPath(3));
-            if (index >= 0) {
-                this.blacklist.splice(index, 1);
-            }
-        }
-
-        , getCallingPath: function(depth) {
-            var pos = new RegExp(new Array(depth + 1).join('.*\\n') + '[^\\(]+\\(([^:]+)', 'i').exec((new Error()).stack);
+        getCallingPath(depth) {
+            const pos = new RegExp(new Array(depth + 1).join('.*\\n') + '[^\\(]+\\(([^:]+)', 'i').exec((new Error()).stack);
             return pos[1].replace(project.root, '');
         }
 
 
-        // debug
-        , debug: function debug() {
-            this.log(arguments, 'grey');
+
+
+        debug(...args) {
+            this.log(args, 'grey');
         }
 
-        // info
-        , info: function info() {
-            this.log(arguments, 'white');
+        info(...args) {
+            this.log(args, 'white');
         }
 
-        // warn
-        , warn: function warn() {
-            this.log(arguments, 'yellow', true);
+        warn(...args) {
+            this.log(args, 'yellow', true);
         }
 
-        // error (uncatchable)
-        , error: function error() {
-            this.log(arguments, 'red', true);
+        error(...args) {
+            this.log(args, 'red', true);
         }
 
-        // wtf
-        , wtf: function wtf() {
-            Array.prototype.unshift.call(arguments, 'WTF?');
-            this.log(arguments, 'magenta', true);
+        wtf(...args) {
+            args.unshift('WTF?');
+            this.log(args, 'magenta', true);
         }
 
-        // success, the green stuff
-        , success: function success() {
-            this.log(arguments, 'green', true);
+        success(...args) {
+            this.log(args, 'green', true);
         }
 
 
-
-        // highlight a message
-        , highlight: function highlight() {
-            this.log(arguments, 'cyan', true);
-        }
-
-
-        , log: function(args, color, bold) {
-            if (this.blacklist.length === 0 || this.blacklist.indexOf(this.getCallingPath(4)) === -1) {
-                var logs = this.buildMessage(Array.prototype.slice.call(args));
-                console.log(this.createSignature(color, bold) + (bold ? logs.text[color].bold : logs.text[color]));
-
-                this.printDir(logs.dir);
-                logs.errors.forEach(function(e) { this.trace(e, true); }.bind(this));
-            }
+        highlight(...args) {
+            this.log(args, 'cyan', true);
         }
 
 
 
-        , buildMessage: function(items) {
+
+
+        log(args, color, bold) {
+            const logs = this.buildMessage(args);
+            console.log(this.createSignature(color, bold) + (bold ? logs.text[color].bold : logs.text[color]));
+
+            this.printDir(logs.dir);
+            logs.errors.forEach(e => this.trace(e, true));
+        }
+
+
+
+
+
+
+        buildMessage(items) {
             if (items.length > 0) {
                 if (type.string(items[0])) {
-                    var reg = /\%s/gi, i = 0;
+                    const reg = /\%s/gi;
+                    let i = 0;
+
                     while(reg.exec(items[0])) {
                         i++;
+
                         if (items.length > i) {
                             var formatted = this.formatItem(items[i]);
                             items[0] = items[0].replace(/\%s/i, formatted);
                             reg.lastIndex += formatted.length - 1;
-                        }
-                        else return this.processItems('', items);
+                        } else return this.processItems('', items);
                     }
 
                     return this.processItems(items[0], items.slice(i + 1));
-                }
-                else return this.processItems('', items);
+                } else return this.processItems('', items);
             }
+            
             return this.processItems('', []);
         }
 
 
-        , processItems: function(text, items) {
-            var logs = { text: [], dir: [], errors: [] }, currentItem;
+
+
+        processItems(text, items) {
+            const logs = {
+                  text: []
+                , dir: []
+                , errors: []
+            }
+
+            let currentItem;
 
             if (text) logs.text.push(text);
+
 
             for (var i = 0, l = items.length; i < l; i++) {
                 currentItem = this.formatItem(items[i]);
@@ -191,7 +179,10 @@
         }
 
 
-        , formatItem: function(input) {
+
+
+
+        formatItem(input) {
             switch (type(input)) {
                 case 'string':
                     return input.length > 1000 ? input.substr(0, 1000) + ' [...]' : input;
@@ -226,27 +217,29 @@
         }
 
 
-        // dir an object displaying an optional message
-        , dir: function() {
-            // required for creating the correct signature (nede to add a line to the stack);
 
-            this.printDir(Array.prototype.slice.call(arguments));
+
+
+        dir(...args) {
+            this.printDir(args);
         }
 
 
-        , printDir: function(items) {
-            for (var i = 0, l = items.length; i < l; i++) {
-                //console.log(this.createSignature('white') + '[Dir]'.white);
+
+
+        printDir(items) {
+            for (let i = 0, l = items.length; i < l; i++) {
                 this._dir(items[i], 0, null, true, []);
             }
         }
 
 
-        // private dir
-        , _dir: function(data, margin, name, first, knownObjects, spacing) {
+
+        
+        _dir(data, margin, name, first, knownObjects, spacing) {
             spacing = spacing || '';
 
-            var fnname = name;
+            let fnname = name;
             name = (typeof name === 'string' ? name + ': ' : '').white;
 
             switch (typeof data) {
@@ -399,7 +392,7 @@
 
 
         // trace an error displaying an optional message
-        , trace: function trace(err, skip, padding, compact) {
+        trace(err, skip, padding, compact) {
             var lines, current, i, l;
 
             padding = padding || 0;
@@ -438,7 +431,7 @@
 
 
         // create logsignature
-        , createSignature: function(color, bold) {
+        createSignature(color, bold) {
             var   date = new Date()
                 , result
                 , line = /\n.*\n.*\n.*\n\s*at\s([^\n]+)/i.exec((new Error()).stack)
@@ -478,9 +471,9 @@
 
 
         // pad
-        , _pad: function(text, len, char, invert) {
+        _pad(text, len, char, invert) {
             text = text + '';
             return text.length >= len ? text : (invert ? text + new Array(len - text.length + 1).join(char || '0') : new Array(len - text.length + 1).join(char || '0') + text);
         }
-    });
-}();
+    }
+};
