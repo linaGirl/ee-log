@@ -31,7 +31,7 @@ The module exposes a set of methods that can be used to print colorful logs. Eac
 log.error('not good!');
 ```
 
-you may also require the module itself to log items
+you may also use the module itself to log items
 
 	const log = require('ee-log');
 
