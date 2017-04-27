@@ -28,7 +28,7 @@ The module exposes a set of methods that can be used to print colorful logs. Eac
 	
 
 ```
-	log.error('not good!');
+log.error('not good!');
 ```
 
 you may also require the module itself to log items
