@@ -33,6 +33,10 @@ log.error('not good!');
 
 you may also use the module itself to log items
 
-	const log = require('ee-log');
+```
+const log = require('ee-log');
 
-	log('this is awesome', {someValue: true }, new Error('fancy error printing'));
+log('this is awesome', {
+	someValue: true
+}, new Error('fancy error printing'));
+```
