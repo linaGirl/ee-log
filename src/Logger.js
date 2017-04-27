@@ -409,6 +409,17 @@
                 lines = err.stack.split('\n');
                 i = lines.length, l = i;
 
+                if (err.name === 'SyntaxError') {
+                    const matches = /^(.+):(\d)\n(.*)\n(.+)\n/gi.exec(err.stack);
+                    if (matches) {
+                        console.log('');
+                        console.log(this._pad('', padding, ' ')+(`at ${matches[1]}:${matches[2]}`).grey);
+                        console.log(this._pad('', padding, ' ')+(`${matches[3]}`).yellow);
+                        console.log(this._pad('', padding, ' ')+(`${matches[4]}`).red.bold);
+                        console.log('');
+                    }
+                }
+
                 while(i--) {
                     current = /at (.*) \((.*)\:([0-9]+)\:([0-9]+)\)$/.exec(lines[l - i]);
 
