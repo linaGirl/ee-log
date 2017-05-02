@@ -1,5 +1,7 @@
 # ee-log
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/eventEmitter/ee-log.svg)](https://greenkeeper.io/)
+
 Easy, simple & useful logging
 
 
