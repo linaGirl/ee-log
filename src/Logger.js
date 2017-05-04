@@ -410,7 +410,7 @@
                 i = lines.length, l = i;
 
                 if (err.name === 'SyntaxError') {
-                    const matches = /^(.+):(\d)\n(.*)\n(.+)\n/gi.exec(err.stack);
+                    const matches = /^(.+):(\d+)\n(.*)\n(.+)\n/gi.exec(err.stack);
                     if (matches) {
                         console.log('');
                         console.log(this._pad('', padding, ' ')+(`at ${matches[1]}:${matches[2]}`).grey);
