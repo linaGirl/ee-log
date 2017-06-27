@@ -272,7 +272,8 @@
 
                     // date
                     else if (data instanceof Date) {
-                        console.log(this._pad('', margin * 4, ' ') + (! first ? ', ' : spacing).grey + name + data.toISOString().white);
+                        if (isNaN(data.getTime())) console.log(this._pad('', margin * 4, ' ') + (! first ? ', ' : spacing).grey + name + '[Invalid Date]'.white);
+                        else console.log(this._pad('', margin * 4, ' ') + (! first ? ', ' : spacing).grey + name + data.toISOString().white);
                     }
 
 

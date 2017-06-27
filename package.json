@@ -1,27 +1,32 @@
 {
-      "name"                        : "ee-log"
-    , "description"                 : "Easy, simple & useful logging"
-    , "version"                     : "2.0.3"
-    , "homepage"                    : "https://github.com/eventEmitter/ee-log"
-    , "author"                      : "Michael van der Weg <michael@eventemitter.com> (http://eventemitter.com/)"
-    , "license"                     : "MIT"
-    , "repository": {
-          "url"                     : "https://github.com/eventEmitter/ee-log.git"
-        , "type"                    : "git"
-    }
-    , "engines": {
-        "node"                      : ">=7"
-    }
-    , "bugs": {
-        "url"                       : "https://github.com/eventEmitter/ee-log/issues"
-    }
-    , "dependencies": {
-        "ee-types"                  : "2.x"
-    }
-    , "devDependencies": {}
-    , "optionalDependencies": {}
-    , "keywords"                    : [ "log", "logging", "trace", "colorful" ]
-    , "scripts": {
-        "test"                      : "node test.js"
+    "name": "ee-log",
+    "description": "Easy, simple & useful logging",
+    "version": "2.0.4",
+    "homepage": "https://github.com/eventEmitter/ee-log",
+    "author": "Michael van der Weg <michael@eventemitter.com> (http://eventemitter.com/)",
+    "license": "MIT",
+    "repository": {
+        "url": "https://github.com/eventEmitter/ee-log.git",
+        "type": "git"
+    },
+    "engines": {
+        "node": ">=7"
+    },
+    "bugs": {
+        "url": "https://github.com/eventEmitter/ee-log/issues"
+    },
+    "dependencies": {
+        "ee-types": "2.x"
+    },
+    "devDependencies": {},
+    "optionalDependencies": {},
+    "keywords": [
+        "log",
+        "logging",
+        "trace",
+        "colorful"
+    ],
+    "scripts": {
+        "test": "node test.js"
     }
 }
