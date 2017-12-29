@@ -1,22 +1,22 @@
 {
     "name": "ee-log",
-    "description": "Easy, simple & useful logging",
-    "version": "2.0.4",
+    "description": "Easy, simple & beatufil logs",
+    "version": "3.0.0",
     "homepage": "https://github.com/eventEmitter/ee-log",
-    "author": "Michael van der Weg <michael@eventemitter.com> (http://eventemitter.com/)",
+    "author": "Michael van der Weg <michael@vanderweg.ch> (http://vanderweg.ch/)",
     "license": "MIT",
     "repository": {
         "url": "https://github.com/eventEmitter/ee-log.git",
         "type": "git"
     },
     "engines": {
-        "node": ">=7"
+        "node": ">=8"
     },
     "bugs": {
         "url": "https://github.com/eventEmitter/ee-log/issues"
     },
     "dependencies": {
-        "ee-types": "2.x"
+        "logd-console-output": "^1.0.1"
     },
     "devDependencies": {},
     "optionalDependencies": {},
