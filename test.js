@@ -10,3 +10,14 @@ log.wtf(`im sitting in a plane from basel to london, it's shaking as fuck but pr
 log.dir(1,2,3, new Map());
 log.trace(new Error('not good!'));
 log('a string', 1338, new Date());
+
+
+
+
+const f = async () => {
+    throw new Error(1);
+}
+
+
+f().then(log).catch(log);
+

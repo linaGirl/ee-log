@@ -1,7 +1,7 @@
 {
     "name": "ee-log",
     "description": "Easy, simple & beatufil logs",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "homepage": "https://github.com/eventEmitter/ee-log",
     "author": "Michael van der Weg <michael@vanderweg.ch> (http://vanderweg.ch/)",
     "license": "MIT",
@@ -16,7 +16,8 @@
         "url": "https://github.com/eventEmitter/ee-log/issues"
     },
     "dependencies": {
-        "logd-console-output": "^1.0.1"
+        "@distributed-systems/callsite": "^1.1.1",
+        "logd-console-output": "^1.0.4"
     },
     "devDependencies": {},
     "optionalDependencies": {},
