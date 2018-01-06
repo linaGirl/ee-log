@@ -14,9 +14,7 @@ module.exports = class Logger {
     constructor() {
         this.blacklist = [];
         this.callsite = new Callsite();
-        this.options = {
-            truncate: 100000
-        };
+        this.options = {};
     }
 
 
@@ -26,7 +24,7 @@ module.exports = class Logger {
             slice: 1,
             limit: 10,
         });
-        
+
         return frames[0];
     }
 
