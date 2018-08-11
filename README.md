@@ -5,8 +5,6 @@ Easy, simple & useful logging
 
 [![npm](https://img.shields.io/npm/dm/ee-log.svg?style=flat-square)](https://www.npmjs.com/package/ee-log)
 [![Travis](https://img.shields.io/travis/eventEmitter/ee-log.svg?style=flat-square)](https://travis-ci.org/eventEmitter/ee-log)
-[![node](https://img.shields.io/node/v/ee-log.svg?style=flat-square)](https://nodejs.org/)
-[![bitHound Overall Score](https://www.bithound.io/github/eventEmitter/ee-log/badges/score.svg)](https://www.bithound.io/github/eventEmitter/ee-log)
 
 
 ![printscreen](docs/demo.png)
