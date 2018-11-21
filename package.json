@@ -16,7 +16,7 @@
         "url": "https://github.com/eventEmitter/ee-log/issues"
     },
     "dependencies": {
-        "@distributed-systems/callsite": "^1.1.1",
+        "@distributed-systems/callsite": "^2.0.0",
         "logd-console-output": "^1.2.1"
     },
     "devDependencies": {},
