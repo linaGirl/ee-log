@@ -1,3 +1,1 @@
-{
-	module.exports = require('./src/log');
-}
+module.exports = require('./src/log');
