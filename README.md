@@ -2,6 +2,7 @@
 
 Easy, simple & useful logging
 
+Supported by [joinbox.com](https://joinbox.com/), your swiss node.js & javascript agency :rocket:
 
 [![npm](https://img.shields.io/npm/dm/ee-log.svg?style=flat-square)](https://www.npmjs.com/package/ee-log)
 [![Travis](https://img.shields.io/travis/eventEmitter/ee-log.svg?style=flat-square)](https://travis-ci.org/eventEmitter/ee-log)
