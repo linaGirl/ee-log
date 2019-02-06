@@ -1,7 +1,7 @@
 {
     "name": "ee-log",
     "description": "Easy, simple & beautiful logs",
-    "version": "3.0.8",
+    "version": "3.0.9",
     "homepage": "https://github.com/eventEmitter/ee-log",
     "author": "Michael van der Weg <michael@vanderweg.ch> (http://vanderweg.ch/)",
     "license": "MIT",
